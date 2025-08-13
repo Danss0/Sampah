@@ -88,7 +88,7 @@ def home_admin():
 
 @app.route('/signup')
 def signup():
-    return render_template('/templates_user/register.html')
+    return render_template('templates_user/register.html')
 
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -136,7 +136,7 @@ def sign_up():
 
 @app.route('/signin')
 def signin():
-    return render_template('/templates_user/login.html')
+    return render_template('templates_user/login.html')
 
 @app.route('/sign_in', methods=['POST'])
 def sign_in():
@@ -174,7 +174,7 @@ def sign_in():
 
 @app.route('/signup/admin')
 def admin_signup():
-    return render_template('/templates_admin/admin_register.html')
+    return render_template('templates_admin/admin_register.html')
 
 @app.route('/sign_up/admin', methods=['POST'])
 def admin_sign_up():
@@ -195,7 +195,7 @@ def admin_sign_up():
 
 @app.route('/signin/admin')
 def admin_signin():
-    return render_template('/templates_admin/admin_login.html')
+    return render_template('templates_admin/admin_login.html')
 
 @app.route('/sign_in/admin', methods=['POST'])
 def admin_sign_in():
@@ -235,7 +235,7 @@ def admin_sign_in():
 @app.route('/ktpfiles')
 def ktpfiles():
     users = list(db.users.find({"category": "visitor"}))
-    return render_template('/templates_admin/ktpfiles.html', users=users)
+    return render_template('templates_admin/ktpfiles.html', users=users)
 
 
 @app.route('/verify_user/<user_id>', methods=['POST'])
@@ -273,13 +273,13 @@ def about():
         else:
             is_admin = False
             logged_in = False
-        return render_template('/templates_user/about.html', user_info=user_info, logged_in=logged_in, is_admin=is_admin)
+        return render_template('templates_user/about.html', user_info=user_info, logged_in=logged_in, is_admin=is_admin)
     
     except jwt.ExpiredSignatureError:
         msg = 'Your token has expired'
     except jwt.exceptions.DecodeError:
         msg = 'There was a problem logging you in'
-    return render_template('/templates_user/about.html', msg=msg)
+    return render_template('templates_user/about.html', msg=msg)
 
 
 @app.route('/contact', methods=['GET', 'POST'])
@@ -312,13 +312,13 @@ def contact():
             is_admin = False
             logged_in = False
 
-        return render_template('/templates_user/contact.html', user_info=user_info, logged_in=logged_in, is_admin=is_admin)
+        return render_template('templates_user/contact.html', user_info=user_info, logged_in=logged_in, is_admin=is_admin)
     
     except jwt.ExpiredSignatureError:
         msg = 'Your token has expired'
     except jwt.exceptions.DecodeError:
         msg = 'There was a problem logging you in'
-    return render_template('/templates_user/contact.html', user_info=None, logged_in=False, is_admin=False, msg=msg)
+    return render_template('templates_user/contact.html', user_info=None, logged_in=False, is_admin=False, msg=msg)
 
 
 
@@ -388,7 +388,7 @@ def detail():
                 user_info = db.users.find_one({"email": payload["id"]})
                 if user_info:
                     logged_in = True
-                return render_template('/templates_user/detail.html', user_info=user_info, logged_in = logged_in)
+                return render_template('templates_user/detail.html', user_info=user_info, logged_in = logged_in)
         except jwt.ExpiredSignatureError:
              msg = 'Your token has expired'
         except jwt.exceptions.DecodeError:
