@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="{{ url_for('static', filename='images/w.png') }}" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-JM66DMBuv+DoN3UWjb30ViFzv5fWk74+I3eB9NFVUhUhkK95IPWiZlnN3cPVmMR7IeTJ3jpsCYpBc0mPx9szAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>MyTrash | About</title>
+</head>
+
+<style>
+    .bg-nav {
+        background-image: url('../static/images/oke.png'),
+            linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+        border-radius: 0px 0px 30px 30px;
+        background-position:bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-blend-mode: overlay;
+        will-change: transform;
+        height: 400px;
+    }
+    .featurette-divider1 {
+        margin-top: 17%;
+    }
+
+    .navbar {
+        padding: 1rem;
+        background-color: transparent;
+    }
+
+    .navbar-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+    }
+
+    .navbar-item {
+        margin-left: 1rem;
+        color: white;
+        border-radius: 20px;
+    }
+
+    .navbar a {
+        text-decoration: none;
+    }
+
+    .navbar-item ul {
+        margin-left: 1rem;
+        color: white;
+        border-radius: 20px;
+    }
+
+    .is-lihat {
+        background-color: #EDF1D6;
+        color: #40513B;
+        border-radius: 10px;
+        border: none;
+        font-weight: bold;
+        height: 50px;
+        margin-top: 2.5rem;
+    }
+
+    .is-lihat:hover {
+        background-color: #dfeb9a;
+    }
+
+    .is-daftar {
+        background-color: #d6d2bf;
+        color: #40513B;
+        border-radius: 20px;
+        border: none;
+    }
+
+    .is-daftar:hover {
+        background-color: white;
+    }
+
+    .is-masuk {
+        background-color: transparent;
+        color: white;
+        border: none;
+    }
+
+    .is-masuk:hover {
+        background-color: white;
+        border-radius: 20px;
+    }
+
+    .is-btn-delete {
+        background-color:#FF0060;
+        border-radius: 20px;
+        color: white;
+        border: none;
+    }
+
+    .is-btn-delete:hover {
+        background-color: #ee035d;
+        color: white;
+    }
+
+    .navbar-burger {
+        color: #609966;
+    }
+
+    .navbar-burger:hover {
+        color: white;
+    }
+
+    .is-light {
+        color: white;
+    }
+
+    .content-main {
+        margin-left: 2.5rem;
+        margin-top: 2.5rem;
+        margin-right: 2.5rem;
+    }
+
+    .perintah {
+        margin-bottom: 2.5rem;
+    }
+
+    .promosi {
+        margin-top: 2.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .card-content {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
+    }
+
+    .card-content p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        max-height: 3.6em;
+        line-height: 1.2em;
+    }
+
+
+    .is-footer-link {
+        background-color: transparent;
+        color: white;
+        border: none;
+    }
+
+    .is-footer-link:hover {
+        color: #EDF1D6;
+    }
+
+    .is-user-info {
+        background-color: transparent;
+        border: none;
+        color: white;
+    }
+       /* Footer */
+    .is-footer-link {
+        background-color: transparent;
+        color: white;
+        border: none;
+    }
+
+    .is-footer-link:hover {
+        color: #EDF1D6;
+    }
+
+    .is-user-info {
+        background-color: transparent;
+        border: none;
+        color: white;
+    }
+
+    #verified-status {
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.fade-out-smooth {
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+.fade-in-smooth {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: all 0.3s ease;
+}
+    
+     /* Footer */
+ footer {
+    background-color: #2c3e50;
+    color: #ffffff;
+    padding: 40px 20px 20px 20px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-left {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  .footer-logo img {
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
+
+  .footer-text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #ffffff;
+  }
+
+  .footer-description {
+    font-size: 0.95rem;
+    color: #dddddd;
+    max-width: 350px;
+    line-height: 1.6;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .social-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: #ffffff;
+    color: #2c3e50;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+  }
+
+  .social-btn:hover {
+    background-color: #18bc9c;
+    color: #ffffff;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    border-top: 1px solid #444;
+    padding-top: 15px;
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-left {
+      margin-bottom: 20px;
+    }
+  }
+
+    .is-user-info:hover {
+        background-color: #ffffff;
+        border: none;
+        color: #40513B;
+        border-radius: 20px;
+    }
+   
+    @media screen and (max-width: 768px) {
+        .navbar-start {
+            flex-direction: column;
+            margin-left: 0;
+            align-items: start;
+            margin-right: 2.5rem;
+            margin-top: 1rem;
+        }
+
+        .is-4 {
+            width: 80px;
+        }
+
+        .is-daftar {
+            color: #40513B;
+            background-color: #EDF1D6;
+        }
+
+        .is-daftar:hover {
+            background-color: #343640;
+            color: white;
+        }
+
+        .navbar-item {
+            color: #40513B;
+        }
+
+        .is-masuk {
+            border-radius: 20px;
+            background-color: #343640;
+            color: #EDF1D6;
+        }
+
+        .is-masuk:hover {
+            color: #40513B;
+            background-color: #EDF1D6;
+        }
+
+        .image-liburan {
+            width: 100%;
+        }
+
+        .is-user-info {
+            background-color: transparent;
+            border: none;
+            color: #40513B;
+        }
+
+        .is-user-info:hover{
+            background-color: #40513B;
+            border: none;
+            color: white;
+            border-radius: 20px;
+        }
+    }
+</style>
+
+<script>
+    function toggleNavbar() {
+        let target = $('#navbarBasicExample');
+        $('.navbar-burger').toggleClass('is-active');
+        target.toggleClass('is-active');
+    }
+</script>
+
+<body>
+
+    <div class="bg-nav">
+        <nav class="navbar" id="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <img src="../static/images/p.png" alt="" class="title is-4 is-logo">
+                </a>
+
+                <!-- Toggle button for mobile -->
+                <a role="button" class="navbar-burger is-light" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample" onclick="toggleNavbar()">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start navbar-center">
+                    <a class="navbar-item home" href="/">Home</a>
+
+                    <a class="navbar-item" href="/about">About</a>
+                    <a class="navbar-item" href="/contact">Contact</a>
+                    <a class="navbar-item" data-logged-in="{{ logged_in | default(false) | tojson }}" onclick="sampah(event)">Pengaduan</a>
+
+                    {% if logged_in %}
+                    {% if is_admin %}
+                    <a class="navbar-item" href="/cek_pengaduan">Cek Pengaduan</a>
+                    {% else %}
+                    <a class="navbar-item" id="user-status" data-verified="{{ 'true' if user_info.is_verified else 'false' }}" onclick="cekPengaduan()">Cek Pengaduan</a>
+                    {% endif %}
+                    {% endif %}
+                </div>
+
+                {% if not logged_in %}
+                <div class="navbar-end navbar-auth">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-masuk" href="/signin">Masuk</a>
+                            <a class="button is-daftar" href="/signup">Daftar</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if logged_in %}
+                <div class="navbar-end navbar-auth">
+                    <div class="navbar-item">
+                        {% if user_info.is_verified %}
+                            <span id="verified-status" class="navbar-item has-text-success" onclick="Verified()" style="cursor: pointer;" >✔ Terverifikasi</span>
+                        {% else %}
+                            <span class="navbar-item has-text-grey-light">Belum Terverifikasi</span>
+                        {% endif %}
+                        <div class="buttons">
+                            <a class="button is-user-info">{{ user_info.name }}</a>
+                            <a class="button is-btn-delete" onclick="sign_out()">Logout</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </nav>
+        
+        <section class="section">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-half">
+                        <div class="jumbotron">
+                            <h2 class="title is-3 has-text-centered is-light"><span class="has-text-weight-light"></span>About</h2>
+                        </div>
+                     </div>
+             </section>
+    <div class="container marketing">
+
+        <hr class="featurette-divider1">
+        <div class="row featurette1">
+        <div class="col-md-7">
+            <p class="lead">MyTrash adalah pengaduan atau keluhan yang diajukan oleh masyarakat terkait masalah sampah yang tidak tertangani dengan baik, seperti sampah yang menumpuk di jalanan, tempat pembuangan sampah yang tidak teratur, atau adanya pencemaran lingkungan akibat sampah yang tidak dikelola dengan baik. Oleh karena itu, platform kami ( MyTrash ) memudahkan masyarakat untuk mengadukan sampah yang menumpuk dengan tujuan agar masalah sampah dapat ditangani dengan cepat dan tepat. Melalui platform kami, masyarakat dapat berperan aktif dalam menjaga kebersihan dan kelestarian lingkungan.</p>
+        </div>
+        <div class="col-md-5">
+            <img src="./static/images/clean.png" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em"></text></img>
+        </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- 2 -->
+        <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">Mengapa Memilih Kami <span class="text-muted">/ Why Us</span></h2>
+            <p class="lead">1.	Akses yang mudah melalui website.</p>
+            <p class="lead">2.	Respon cepat langsung ditangani oleh petugas terkait.</p>
+            <p class="lead">3.	Meningkatkan pengguna lebih percaya pengaduan sedang diproses</p>
+            <p class="lead">4.	Sistem keamanan yang menjaga data pribadi pengguna.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            <img src="./static/images/energi.png" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em"></text></img>
+        </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- 3 -->
+        <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Keuntungan <span class="text-muted">/ Benefit</span></h2>
+            <p class="lead">1.	Efisiensi dalam Penanganan Sampah</p>
+            <p class="lead">2.	Kemudahan Akses Melaporkan Sampah</p>
+            <p class="lead">3.	Fleksibilitas Waktu</p>
+            <p class="lead">4.	Cepat Tanggap</p>
+            <p class="lead">5.	Keamanan Data</p>
+        </div>
+        <div class="col-md-5">
+            <img src="./static/images/3r.png" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em"></text></img>
+        </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+
+    </div>
+
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+            <a href="#" class="footer-logo">
+                <img src="../static/images/b.png" alt="Logo" width="90px">
+            </a>
+            <p class="footer-text">My Trash</p>
+            <p class="footer-description">
+                Platform ini menggerakkan masyarakat untuk berperan serta mewujudkan Bandung bebas sampah.
+            </p>
+            </div>
+
+            <div class="footer-social">
+            <!-- Facebook -->
+            <a class="social-btn" href="#!" title="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <!-- WhatsApp -->
+            <a class="social-btn" href="#!" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <!-- Instagram -->
+            <a class="social-btn" href="#!" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2025 MyTrash. All rights reserved.
+        </div>
+    </footer>
+    </main>
+
+    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  </body>
+</html>

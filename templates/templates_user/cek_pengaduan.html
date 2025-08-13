@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="{{ url_for('static', filename='images/w.png') }}" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+    <title>MyTrash | Cek Pengaduan</title>
+</head>
+
+
+<style>
+    .bg-nav {
+        /* background-image: url('../static/images/gambar1.jpg'); */
+        border-radius: 0px 0px 30px 30px;
+        background-position: left top;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-blend-mode: normal;
+        will-change: transform;
+        height: 400px;
+    }
+
+    .navbar {
+        padding: 1rem;
+        background-color: transparent;
+    }
+
+    .navbar-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+    }
+
+    .navbar-item {
+        margin-left: 1rem;
+        color: black;
+        border-radius: 20px;
+    }
+
+    .navbar a {
+        text-decoration: none;
+    }
+
+    .navbar-item ul {
+        margin-left: 1rem;
+        color: white;
+        border-radius: 20px;
+    }
+
+    .is-lihat {
+        background-color: #EDF1D6;
+        color: #40513B;
+        border-radius: 10px;
+        border: none;
+        font-weight: bold;
+        height: 50px;
+        margin-top: 2.5rem;
+    }
+
+    .is-lihat:hover {
+        background-color: #dfeb9a;
+    }
+
+    .is-daftar {
+        background-color: #d6d2bf;
+        color: #40513B;
+        border-radius: 20px;
+        border: none;
+    }
+
+
+    .is-daftar:hover {
+        background-color: white;
+    }
+
+    .is-masuk {
+        background-color: transparent;
+        color: black;
+        border: none;
+    }
+
+    .is-masuk:hover {
+        background-color: white;
+        border-radius: 20px;
+    }
+
+    .is-btn-delete {
+        background-color: #FF0060;
+        border-radius: 20px;
+        color: white;
+        border: none;
+    }
+
+    .is-btn-delete:hover {
+        background-color: #ee035d;
+        color: white;
+    }
+
+    .navbar-burger {
+        color: #609966;
+    }
+
+    .navbar-burger:hover {
+        color: white;
+    }
+
+    .is-light {
+        color: white;
+    }
+
+    .content-main {
+        margin-left: 2.5rem;
+        margin-top: 2.5rem;
+        margin-right: 2.5rem;
+    }
+
+    .perintah {
+        margin-bottom: 2.5rem;
+    }
+
+    .promosi {
+        margin-top: 2.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .card-content {
+        padding: 1.5rem;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-content p {
+        margin-bottom: 0.75rem;
+    }
+
+    .is-footer-link {
+        background-color: transparent;
+        color: white;
+        border: none;
+    }
+
+    .is-footer-link:hover {
+        color: #EDF1D6;
+    }
+
+    .is-user-info {
+        background-color: transparent;
+        border: none;
+        color: black;
+    }
+    .is-upload {
+        background-color: #ee035d;
+        border-radius: 20px;
+        color: white;
+    }
+
+    .is-upload:hover {
+        background-color: #ee035d;
+        color: white;
+    }
+
+    #verified-status {
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.fade-out-smooth {
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+.fade-in-smooth {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: all 0.3s ease;
+}
+   /* Footer */
+   footer {
+        padding: 50px 0px 15px 0px;
+        background-color:  #d6d2bf;
+        color: black;
+    }
+        footer .layar-dalam {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-left: 30px;
+        align-items: flex-start;
+    }
+        footer .layar-dalam div {
+        width: 20%;
+    }
+        footer .layar-dalam h5 {
+        margin-top: 0px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+        footer .layar-dalam .copyright {
+        width: 100%;
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 1px solid #666;
+        text-align: center;
+    }
+
+    .is-user-info:hover {
+        background-color: black;
+        border: none;
+        color: white;
+        border-radius: 20px;
+    }
+    @media screen and (max-width: 768px) {
+        .navbar-start {
+            flex-direction: column;
+            margin-left: 0;
+            align-items: start;
+            margin-right: 2.5rem;
+            margin-top: 1rem;
+        }
+
+        .is-4 {
+            width: 80px;
+        }
+
+        .is-daftar {
+            color: #40513B;
+            background-color: #EDF1D6;
+        }
+
+        .is-daftar:hover {
+            background-color: #343640;
+            color: white;
+        }
+
+        .navbar-item {
+            color: #40513B;
+        }
+
+        .is-masuk {
+            border-radius: 20px;
+            background-color: #343640;
+            color: #EDF1D6;
+        }
+
+        .is-masuk:hover {
+            color: #40513B;
+            background-color: #EDF1D6;
+        }
+
+        .image-liburan {
+            max-width: 100%;   
+            height: auto;       
+            max-height: 300px;  
+        }
+
+
+        .is-user-info {
+            background-color: transparent;
+            border: none;
+            color: #40513B;
+        }
+
+        .is-user-info:hover{
+            background-color: #40513B;
+            border: none;
+            color: white;
+            border-radius: 20px;
+        }
+    }
+
+    /* Peta */
+    #map {
+    height: 400px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+
+/* Teks "Rekomendasi" */
+h2 {
+    font-size: 1.5rem; /* Ukuran font yang lebih besar */
+    font-weight: bold; /* Memberikan efek tebal pada teks */
+    color: #40513B; /* Warna hijau untuk kontras dengan latar belakang */
+    margin-top: 20px; /* Memberikan jarak dari elemen sebelumnya */
+    text-align: center; /* Menyelaraskan teks di tengah */
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    /* Mengurangi ukuran peta pada perangkat kecil */
+    #map {
+        height: 250px; 
+    }
+
+    /* Menyesuaikan ukuran font pada teks "Rekomendasi" */
+    h2 {
+        font-size: 1.2rem;
+    }
+}
+</style>
+
+<script>
+    function toggleNavbar() {
+        let target = $('#navbarBasicExample');
+        $('.navbar-burger').toggleClass('is-active');
+        target.toggleClass('is-active');
+    }
+
+</script>
+
+<body>
+
+    <div class="bg-nav">
+        <nav class="navbar" id="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <img src="../static/images/h.png" alt="" class="title is-4 is-logo">
+                </a>
+
+                <!-- Toggle button for mobile -->
+                <a role="button" class="navbar-burger is-light" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample" onclick="toggleNavbar()">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start navbar-center">
+                    <a class="navbar-item home" href="/">Home</a>
+
+                    <a class="navbar-item" href="/about">About</a>
+                    <a class="navbar-item" href="/contact">Contact</a>
+                    <a class="navbar-item" data-logged-in="{{ logged_in | default(false) | tojson }}" onclick="sampah(event)">Pengaduan</a>
+
+                    {% if logged_in %}
+                    {% if is_admin %}
+                    <a class="navbar-item" href="/cek_pengaduan">Cek Pengaduan</a>
+                    {% else %}
+                    <a class="navbar-item" id="user-status" data-verified="{{ 'true' if user_info.is_verified else 'false' }}" onclick="cekPengaduan()">Cek Pengaduan</a>
+                    {% endif %}
+                    {% endif %}
+                </div>
+
+                {% if not logged_in %}
+                <div class="navbar-end navbar-auth">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-masuk" href="/signin">Masuk</a>
+                            <a class="button is-daftar" href="/signup">Daftar</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if logged_in %}
+                <div class="navbar-end navbar-auth">
+                    <div class="navbar-item">
+                        {% if user_info.is_verified %}
+                            <span id="verified-status" class="navbar-item has-text-success" onclick="Verified()" style="cursor: pointer;" >✔ Terverifikasi</span>
+                        {% else %}
+                            <span class="navbar-item has-text-grey-light">Belum Terverifikasi</span>
+                        {% endif %}
+                        <div class="buttons">
+                            <a class="button is-user-info">{{ user_info.name }}</a>
+                            <a class="button is-btn-delete" onclick="sign_out()">Logout</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </nav>
+
+
+        <div class="container mt-5">
+            <h1>Pengaduan Anda</h1>
+            <div class="row">
+                {% if laporan_info %}
+                    {% for laporan in laporan_info %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nama</h5>
+                                    <p class="card-text">{{ laporan['nama'] }}</p>
+        
+                                    <h5 class="card-title">Alamat</h5>
+                                    <p class="card-text">{{ laporan['address'] }}</p>
+        
+                                    <h5 class="card-title">Pesan</h5>
+                                    <p class="card-text">{{ laporan['pesan'] }}</p>
+        
+                                    <h5 class="card-title">Status Pengaduan</h5>
+                                    <p>
+                                        {% if laporan['status_pengaduan'] %}
+                                            <span class="text-success">Sudah Ditangani</span>
+                                        {% else %}
+                                            <span class="text-danger">Belum Ditangani</span>
+                                        {% endif %}
+                                    </p>
+        
+                                    <h5 class="card-title">Bukti Foto</h5>
+                                    <div>
+                                        {% if laporan['bukti_foto'] %}
+                                            <img src="{{ url_for('static', filename='bukti/' + laporan['bukti_foto']) }}" class="img-fluid rounded" alt="Bukti Foto" style="max-height: 150px;">
+                                        {% else %}
+                                            <p class="text-muted">Tidak Ada Bukti</p>
+                                        {% endif %}
+                                    </div>
+        
+                                    <h2>Lokasi TPS</h2>
+                                    <div id="map{{ loop.index }}" style="height: 400px; width: 100%; border-radius: 8px; overflow: hidden;"></div>
+
+                                    <script>
+                                        function initMap{{ loop.index }}() {
+                                            const userLocation = { lat: {{ laporan['latitude'] }}, lng: {{ laporan['longitude'] }} };
+                                            const map = L.map('map{{ loop.index }}').setView([userLocation.lat, userLocation.lng], 13);
+
+                                            // Peta dasar
+                                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                            maxZoom: 19,
+                                            attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                            }).addTo(map);
+
+                                            // Marker lokasi pelapor
+                                            L.marker([userLocation.lat, userLocation.lng], {
+                                            icon: L.icon({
+                                                iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+                                                iconSize: [30, 30],
+                                                iconAnchor: [15, 30],
+                                                popupAnchor: [0, -30]
+                                            })
+                                            })
+                                            .addTo(map)
+                                            .bindPopup(`<div style="font-size: 14px;"><b>📍 Lokasi Anda</b></div>`)
+                                            .openPopup();
+
+                                            // Data rekomendasi TPS
+                                            const places = {{ rekomendasi_tempat_sampah | tojson }};
+                                            places.forEach(function(place) {
+                                            const gmapsLink = `https://www.google.com/maps/dir/?api=1&destination=${place.latitude},${place.longitude}`;
+
+                                            const popupHTML = `
+                                                <div style="min-width:180px; font-size: 13px;">
+                                                <strong style="color: #2c3e50;">${place.name}</strong>
+                                                <p style="margin: 5px 0;">Jarak: <strong>${place.distance} km</strong></p>
+                                                <a href="${gmapsLink}" target="_blank" style="
+                                                    display: inline-block;
+                                                    background-color: #007bff;
+                                                    color: white;
+                                                    padding: 6px 10px;
+                                                    border-radius: 6px;
+                                                    text-decoration: none;
+                                                    font-size: 13px;
+                                                ">📍 Navigasi via Google Maps</a>
+                                                </div>
+                                            `;
+
+                                            L.marker([place.latitude, place.longitude], {
+                                                icon: L.icon({
+                                                iconUrl: 'https://cdn-icons-png.flaticon.com/512/252/252025.png',
+                                                iconSize: [28, 28],
+                                                iconAnchor: [14, 28],
+                                                popupAnchor: [0, -25]
+                                                })
+                                            }).addTo(map).bindPopup(popupHTML);
+                                            });
+                                        }
+
+                                        initMap{{ loop.index }}();
+                                    </script>                                   
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">Belum ada pengaduan.</p>
+                {% endif %}
+            </div>
+        </div>        
+    </div>
+
+</body>
+</html>
