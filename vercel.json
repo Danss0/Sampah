@@ -1,9 +1,10 @@
 {
   "version": 2,
   "builds": [
-    { "src": "Sampah/app.py", "use": "@vercel/python" }
+    { "src": "app.py", "use": "@vercel/python" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "Sampah/app.py" }
+    { "src": "/static/(.*)", "dest": "static/$1" },
+    { "src": "/(.*)", "dest": "app.py" }
   ]
 }
