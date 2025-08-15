@@ -31,7 +31,7 @@ TOKEN_KEY = 'mytoken'
 app.secret_key = os.urandom(24)
 
 @app.route('/', methods=['GET'])
-def main():
+def index():
     token_receive = request.cookies.get(TOKEN_KEY)
 
     try:
