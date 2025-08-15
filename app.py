@@ -24,7 +24,7 @@ DB_NAME =  os.environ.get("DB_NAME")
 client = MongoClient(MONGODB_URI)
 db = client[DB_NAME]
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates", static_folder="static")
 
 SECRET_KEY = 'secret0'
 TOKEN_KEY = 'mytoken'
@@ -542,4 +542,4 @@ def cek_laporan():
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run(debug=True)
